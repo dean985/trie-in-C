@@ -28,46 +28,50 @@ struct node* getNode() {
     return nodeP; 
 } 
 
-void insertNode(struct node *root,char *key) { 
+void insertWord(struct node *root,char *key) { 
     int level; 
     int length = strlen(key); 
     int index; 
   
-    struct node *temp_node = root; 
+    struct node *current = root; 
   
     for (level = 0; level < length; level++) { 
         index = CHAR_TO_INDEX(key[level]); 
-        if (!temp_node->children[index]) {
+        if (!current->children[index]) {
 
-            temp_node->children[index] = getNode(); 
+            current->children[index] = getNode(); 
         }
   
-        temp_node = temp_node->children[index]; 
+        current = current->children[index]; 
     } 
-    temp_node->count+=1;
-    temp_node->isEndOfWord = true; 
+    current->count+=1;                  // add to the amount of time of the word
+    current->isEndOfWord = true;        // make the last node the end of word
     
 }
 
 bool isLeaf(struct node* root){
-    return (root->isEndOfWord == true);
+    //return (root->isEndOfWord == true);
+    return root->isEndOfWord;
 }
 
-bool search(struct node *root,char *key) { 
+bool search(struct node* root,char* key) { 
     int level; 
-    int length = strlen(key); 
     int index; 
-    struct node *temp_node = root; 
-    for (level = 0; level < length; level++) { 
+
+    struct node* current = root; 
+    for (level = 0; level < strlen(key); level++) { 
         index = CHAR_TO_INDEX(key[level]); 
-        if (!temp_node->children[index]) {
+        if (!current->children[index]) {
 
             return false; 
         }
-        temp_node = temp_node->children[index]; 
+        current = current->children[index]; 
     } 
-    return (temp_node != NULL && temp_node->isEndOfWord); 
+    return (current->isEndOfWord && current != NULL  ); 
 } 
+/**
+ * print in reverse
+ */
 
 void showR(struct node* root, char str[],int level) {  
     if (isLeaf(root)) { 
@@ -75,15 +79,16 @@ void showR(struct node* root, char str[],int level) {
         printf("%s %d\n",str,root->count); 
  
     } 
-    int i; 
-    for (i = ALPHABET_SIZE-1; i >= 0; i--) { 
+    for (int i = ALPHABET_SIZE-1; i >= 0; i--) { 
         if (root->children[i]) { 
             str[level] = i + 'a'; 
             showR(root->children[i], str, level + 1); 
         } 
     } 
 } 
-
+/**
+ * print regular
+ */
 void show(struct node* root, char str[], int level) { 
     if (isLeaf(root))  { 
         str[level] = '\0'; 
@@ -97,7 +102,9 @@ void show(struct node* root, char str[], int level) {
         } 
     } 
 }
-
+/**
+ * delete the tree and free its memory
+ */
 void FREE(struct node* root) { 
 	if(!root){
         return;

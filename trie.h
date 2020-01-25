@@ -4,7 +4,7 @@
 
 
 struct node* getNode();
-void insertNode(struct node* root,char *key);
+void insertWord(struct node* root,char *key);
 bool search(struct node* root,char *key);
 bool isLeaf(struct node* root);
 void show(struct node* root, char str[], int level);

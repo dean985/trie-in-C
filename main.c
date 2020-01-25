@@ -45,7 +45,7 @@ void validator(char* in){
  * Parsing the string 
  */
 
-size_t string_parser( const char *in, char ***word) {
+size_t parseString( const char *in, char ***word) {
     
     const char *pArr = in;
     
@@ -97,8 +97,7 @@ size_t string_parser( const char *in, char ***word) {
 
 
 int main(int argc, char* argv[]) {
-	struct node* root = getNode();
-	//if(root == NULL) exit(1); 
+	struct node* root = getNode();		// initialize the trie
     if (!root) {
         exit(1);
     }
@@ -114,41 +113,36 @@ int main(int argc, char* argv[]) {
 	
 	
  	while((ch = fgetc(stdin)) != EOF) {
-   	 	in = (char*)realloc(in, m+ sizeof(char));
+   	 	in = (char*)realloc(in, m+ sizeof(char));		// reallocate memory as needed, the length of the string is increasing
    	 	in[n] = ch;	
   	  	n++;
   	  	m++;
   	  	
   	}
-  	
-
   	in[n] = '\0'; 
-	
-	//cleans the input from invalid chars.
+	//formatting the input.
 	validator(in);	
-	
-	//puts the input in a word array.
-    	size_t s = string_parser(in, &word);
-    	
-    	//as we dont need the input anymore- we release the memory.
+	//now parsing it.
+    size_t s = parseString(in, &word);
+	// what we need is in s now, then we free the memory of input
 	free(in);
-   	
 
-	//each word in the array is inserted to the trie.
+	//inserting word to the trie.
 	for(int i = 0 ; i < s ; i++) {
 		char* letter = word[i];
-		insertNode(root,letter);
+		insertWord(root,letter);
 
 	}
-	
 	int j=0;
 	char temp[s];
+
 	if(argc!=2){
         show(root,temp,j);
     } 
-	if(argc==2 && *argv[1]=='r') {
+	if(*argv[1]=='r' && argc==2 ) {
         showR(root,temp,j);
     }
+	
 	printf("\n\n");
 	
    	for ( size_t i = 0; i < n; i++ ){
