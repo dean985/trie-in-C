@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
-#include "Trie.h"
+#include "trie.h"
 
 /**
  * 
@@ -138,7 +138,7 @@ int main(int argc, char* argv[]) {
 	//each word in the array is inserted to the trie.
 	for(int i = 0 ; i < s ; i++) {
 		char* letter = word[i];
-		insert(root,letter);
+		insertNode(root,letter);
 
 	}
 	

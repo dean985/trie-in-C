@@ -47,6 +47,9 @@ void insertNode(struct node *root,char *key) {
     temp_node->count+=1;
 }
 
+bool isLeaf(struct node* root){
+    return (root->isEndOfWord == true);
+}
 
 bool search(struct node *root,char *key) { 
     int level; 
@@ -63,7 +66,7 @@ bool search(struct node *root,char *key) {
 } 
 
 void displayR(struct node* root, char str[],int level) {  
-    if (isLeafNode(root)) { 
+    if (isLeaf(root)) { 
         str[level] = '\0'; 
         printf("%s %d\n",str,root->count); 
  
@@ -78,7 +81,7 @@ void displayR(struct node* root, char str[],int level) {
 } 
 
 void display(struct node* root, char str[], int level) { 
-    if (isLeafNode(root))  { 
+    if (isLeaf(root))  { 
         str[level] = '\0'; 
         printf("%s %d\n",str,root->count); 
     }

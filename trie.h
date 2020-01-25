@@ -7,7 +7,7 @@
 struct node* getNode();
 void insertNode(struct node* root,char *key);
 bool search(struct node* root,char *key);
-bool isLeafNode(struct node* root);
+bool isLeaf(struct node* root);
 void display(struct node* root, char str[], int level);
 void displayR(struct node* root, char str[], int level);
 void freeALL(struct node* root);
