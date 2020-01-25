@@ -108,7 +108,6 @@ int main(int argc, char* argv[]) {
 	
 	in = (char*)malloc( sizeof(char) );
 	
-	printf("Enter words:\n");
 	int m=1;
     
     int n=0; 
@@ -145,10 +144,10 @@ int main(int argc, char* argv[]) {
 	int j=0;
 	char temp[s];
 	if(argc!=2){
-        display(root,temp,j);
+        show(root,temp,j);
     } 
 	if(argc==2 && *argv[1]=='r') {
-        displayR(root,temp,j);
+        showR(root,temp,j);
     }
 	printf("\n\n");
 	
@@ -156,7 +155,7 @@ int main(int argc, char* argv[]) {
         free ( word[i] );
     } 
     free( word );
-	freeALL(root);
+	FREE(root);
 
 return 0;
 }
