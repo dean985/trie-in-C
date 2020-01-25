@@ -23,7 +23,7 @@ void validator(char* in){
             // small letters	
 			if(in[i]>96 && in[i]<123) {       
 				in[n]=in[i];
-                        	n++; 
+                n++; 
             }
 
             // capital letters
@@ -54,12 +54,12 @@ size_t parseString( const char *in, char ***word) {
     while(*pArr) {
 
         while(isspace((unsigned char)*pArr)){
-            pArr++;
+            ++pArr;
         }
 
         n += *pArr != '\0';
         while(*pArr && !isspace((unsigned char)*pArr)){
-            pArr++;
+            ++pArr;
         } 
     }
 
@@ -71,12 +71,12 @@ size_t parseString( const char *in, char ***word) {
         while (*pArr) {
 
             while(isspace((unsigned char)*pArr)){
-                pArr++;
+                ++pArr;
             } 
             if (*pArr)  {
-                const char* almost = pArr;
+                const char *almost = pArr;
                 while(*pArr && !isspace((unsigned char)*pArr)){
-                    pArr++;
+                    ++pArr;
                 } 
 
                 size_t len = pArr - almost;
@@ -97,13 +97,13 @@ size_t parseString( const char *in, char ***word) {
 
 
 int main(int argc, char* argv[]) {
-	struct node* root = getNode();		// initialize the trie
+	struct node *root = getNode();		// initialize the trie
     if (!root) {
         exit(1);
     }
     char ch;
 	char* in = NULL;
-	char ** word = NULL;
+	char** word = NULL;
 	
 	in = (char*)malloc( sizeof(char) );
 	
@@ -113,7 +113,7 @@ int main(int argc, char* argv[]) {
 	
 	
  	while((ch = fgetc(stdin)) != EOF) {
-   	 	in = (char*)realloc(in, m+ sizeof(char));		// reallocate memory as needed, the length of the string is increasing
+   	 	in = (char*)realloc(in, m + sizeof(char));		// reallocate memory as needed, the length of the string is increasing
    	 	in[n] = ch;	
   	  	n++;
   	  	m++;
@@ -145,7 +145,7 @@ int main(int argc, char* argv[]) {
 	
 	printf("\n\n");
 	
-   	for ( size_t i = 0; i < n; i++ ){
+   	for ( size_t i = 0; i < s; i++ ){
         free ( word[i] );
     } 
     free( word );

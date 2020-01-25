@@ -44,22 +44,22 @@ void insertWord(struct node *root,char *key) {
   
         current = current->children[index]; 
     } 
-    current->count+=1;                  // add to the amount of time of the word
     current->isEndOfWord = true;        // make the last node the end of word
+    current->count+=1;                  // add to the amount of time of the word
+
     
 }
 
 bool isLeaf(struct node* root){
-    //return (root->isEndOfWord == true);
-    return root->isEndOfWord;
+    return (root->isEndOfWord != false);
 }
 
 bool search(struct node* root,char* key) { 
     int level; 
     int index; 
-
+    int len = strlen(key);
     struct node* current = root; 
-    for (level = 0; level < strlen(key); level++) { 
+    for (level = 0; level < len; level++) { 
         index = CHAR_TO_INDEX(key[level]); 
         if (!current->children[index]) {
 
@@ -79,6 +79,7 @@ void showR(struct node* root, char str[],int level) {
         printf("%s %d\n",str,root->count); 
  
     } 
+    
     for (int i = ALPHABET_SIZE-1; i >= 0; i--) { 
         if (root->children[i]) { 
             str[level] = i + 'a'; 
@@ -94,8 +95,8 @@ void show(struct node* root, char str[], int level) {
         str[level] = '\0'; 
         printf("%s %d\n",str,root->count); 
     }
-    int i; 
-    for (i = 0; i < ALPHABET_SIZE; i++) { 
+
+    for (int i = 0; i < ALPHABET_SIZE; i++) { 
         if (root->children[i]) { 
             str[level] = i + 'a'; 
             show(root->children[i], str, level + 1); 
@@ -103,7 +104,7 @@ void show(struct node* root, char str[], int level) {
     } 
 }
 /**
- * delete the tree and free its memory
+ * free trie memory
  */
 void FREE(struct node* root) { 
 	if(!root){
